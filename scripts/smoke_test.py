@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Copyright (c) 2013-2015, Rethink Robotics
 # All rights reserved.
@@ -88,7 +88,7 @@ def get_version():
     """
     try:
         version = rospy.get_param('/rethink/software_version').rsplit('.', 1)[0]
-    except socket.error:
+    except(socket.error):
         print("Exiting: Could not communicate with ROS Master to determine " +
               "Software version")
         sys.exit(1)
@@ -138,8 +138,8 @@ def main():
         return 1
 
     try:
-        raw_input("Press <Enter> to Begin Smoke Test\n")
-    except Exception:
+        input("Press <Enter> to Begin Smoke Test\n")
+    except(Exception):
         print("\nExiting.")
         return 1
 
@@ -150,7 +150,7 @@ def main():
                  cur_time.tm_year, test_dict['version'],)
                 )
     if args.test == None:
-        print 'Performing All Tests'
+        print('Performing All Tests')
         ros_init()
         for t in test_dict['valid_tests'][test_dict['version']]:
             run_test(t, filename, args.proceed)

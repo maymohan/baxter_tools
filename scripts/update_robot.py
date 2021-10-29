@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python3
 
 # Copyright (c) 2013-2015, Rethink Robotics
 # All rights reserved.
@@ -164,9 +164,9 @@ def run_update(updater, uuid):
 
     try:
         updater.command_update(uuid)
-    except OSError, e:
+    except(OSError) as e:
         if e.errno == errno.EINVAL:
-            print e.strerror
+            print(e.strerror)
             return 1
         raise
 
@@ -176,9 +176,9 @@ def run_update(updater, uuid):
             timeout=5 * 60,
             timeout_msg="Timeout waiting for update to succeed"
         )
-    except Exception, e:
+    except(Exception) as e:
         if not (hasattr(e, 'errno') and e.errno == errno.ESHUTDOWN):
-            print e.strerror
+            print(e.strerror)
         nl.rc = 1
 
     return nl.rc
@@ -266,13 +266,13 @@ def main():
         return 0
     elif cmd == 'update':
         if uuid == '':
-            print "Error:  no update uuid specified"
+            print("Error:  no update uuid specified")
             return 1
         msg = ("NOTE: Please plug in any Rethink Electric Parallel Grippers\n"
                "      into the robot now, so that the Gripper Firmware\n"
                "      can be automatically upgraded with the robot.\n")
         print (msg)
-        raw_input("Press <Enter> to Continue...")
+        input("Press <Enter> to Continue...")
         if rospy.is_shutdown():
             return 0
         return run_update(updater, uuid)
