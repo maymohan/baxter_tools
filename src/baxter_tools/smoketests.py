@@ -291,7 +291,7 @@ class MoveArms(SmokeTest):
                  [0.0, -0.55, 0.0, 0.75, 0.0, 1.26, 0.0],
                 )
             for move in joint_moves:
-                print("Test: Moving to Joint Positions: ", end=' ')
+                print("Test: Moving to Joint Positions: ")#, end = ' ') 
                 print(", ".join("%.2f" % x for x in move))
                 left_thread = threading.Thread(
                     target=move_thread,
@@ -356,7 +356,7 @@ class Grippers(SmokeTest):
                 limb.move_to_neutral()
                 rospy.sleep(2.0)
                 print("Test: Verify %s Gripper Type" % (name.capitalize(),))
-                if gripper.type() is not 'electric':
+                if gripper.type() != 'electric':
                     raise NameError("Test Requires Two Electric Grippers")
                 s_topic = 'robot/end_effector/' + name + '_gripper/state'
                 ee_state = rospy.wait_for_message(s_topic,
